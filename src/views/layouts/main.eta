@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= it.title || 'My App' %></title>
+  <meta name="description" content="<%= it.description || 'A modern TypeScript SSR application' %>">
+  <link rel="stylesheet" href="/styles.css?v=<%= it.cacheBuster %>">
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <%~ include('../partials/header', it) %>
+  
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <%~ it.body %>
+  </main>
+  
+  <%~ include('../partials/footer', it) %>
+</body>
+</html>

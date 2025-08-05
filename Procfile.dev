@@ -1,0 +1,2 @@
+web: bun run --watch src/index.ts
+css: bunx @tailwindcss/cli -i ./src/styles/main.css -o ./public/styles.css --watch
