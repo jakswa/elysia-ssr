@@ -18,7 +18,7 @@ A modern TypeScript server-side rendering starter template with Elysia, Eta temp
 ```bash
 # Create a new project
 bun create github.com/jakswa/elysia-ssr test-app
-cd my-app
+cd test-app
 
 # load the DB schema (edit DATABASE_URL in .env if needed)
 bun run db:push
