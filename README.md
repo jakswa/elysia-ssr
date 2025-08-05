@@ -17,25 +17,18 @@ A modern TypeScript server-side rendering starter template with Elysia, Eta temp
 
 ```bash
 # Create a new project
-bun create elysia-ssr my-app
+bun create github.com/jakswa/elysia-ssr test-app
 cd my-app
 
-# Install dependencies
-bun install
+# load the DB schema (edit DATABASE_URL in .env if needed)
+bun run db:push
 
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your database credentials
-
-# Set up the database
-bun run db:migrate
-
-# Start the development server
+# Start the development server + tailwindcss watcher
 bun run dev
 
-# Or with a process manager (recommended)
+# Or with a process manager (optional, pretty colors)
 # Install: gem install foreman
-foreman start -f Procfile.dev
+# foreman start -f Procfile.dev
 # Or: brew install overmind && overmind start -f Procfile.dev
 # Or: cargo install ultraman && ultraman start -f Procfile.dev
 ```
