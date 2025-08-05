@@ -1,5 +1,5 @@
 {
-  "name": "my-elysia-app",
+  "name": "elysia-ssr",
   "version": "1.0.0",
   "scripts": {
     "dev": "bun run start:watch & bun run css:watch",
