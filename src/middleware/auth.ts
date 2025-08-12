@@ -47,4 +47,7 @@ export const isSignedIn = ({ user }: { user: unknown }) => {
 
 export const guard = new Elysia()
   .use(authMiddleware)
-  .onBeforeHandle(isSignedIn);
+  .onBeforeHandle((context) => {
+    // The context should include the user from authMiddleware
+    return isSignedIn(context as { user: unknown });
+  });
