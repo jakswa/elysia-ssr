@@ -32,7 +32,7 @@ beforeAll(async () => {
 
     // Reset the database and run migrations
     console.log('🔄 Resetting test database...');
-    execSync('bun run prisma migrate reset --force --skip-seed', {
+    execSync('bun run prisma db push --accept-data-loss', {
       stdio: 'pipe',
       env: { ...process.env, DATABASE_URL: process.env.DATABASE_URL },
     });
