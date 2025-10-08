@@ -19,7 +19,7 @@
   },
   "bun-create": {
     "start": "bun db:push && bun dev",
-    "postinstall": "bun run src/tasks/postinstall.js"
+    "postinstall": "src/tasks/postinstall.js"
   },
   "dependencies": {
     "@elysiajs/cookie": "^0.8.0",
