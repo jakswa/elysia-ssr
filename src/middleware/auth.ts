@@ -1,21 +1,22 @@
 import { Elysia } from 'elysia';
 import { getExpiredCookieConfig } from '../utils/cookies';
 import { prisma } from '../utils/prisma';
+import { setup } from '../setup';
 
-export const authMiddleware = new Elysia({ name: 'authMiddleware' }).derive(
-  { as: 'scoped' },
-  async ({ jwt, cookie }) => {
+export const authMiddleware = new Elysia({ name: 'authMiddleware' })
+  .use(setup)
+  .derive({ as: 'scoped' }, async ({ jwt, cookie }) => {
     const token = cookie.auth?.value;
-    if (!token) {
+    if (!token || typeof token !== 'string') {
       return { user: null };
     }
 
     try {
       const payload = await jwt.verify(token);
-      if (!payload || !payload.id) return { user: null };
+      if (!payload || typeof payload.id !== 'string') return { user: null };
 
       const user = await prisma.user.findUnique({
-        where: { id: payload.id },
+        where: { id: payload.id as string },
         select: {
           id: true,
           name: true,

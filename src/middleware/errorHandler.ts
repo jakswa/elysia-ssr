@@ -106,15 +106,15 @@ export const errorHandler = new Elysia().onError(
       logger.warn(
         {
           ...errorContext,
-          error: {
-            name: error.name,
-            message: error.message,
-          },
+          error:
+            error instanceof Error
+              ? { name: error.name, message: error.message }
+              : { message: String(error) },
           statusCode,
         },
         'Validation error'
       );
-    } else {
+    } else if (error instanceof Error) {
       logger.error(
         {
           ...errorContext,
@@ -125,6 +125,14 @@ export const errorHandler = new Elysia().onError(
           },
         },
         `Unexpected error: ${error.message}`
+      );
+    } else {
+      logger.error(
+        {
+          ...errorContext,
+          error: { message: String(error) },
+        },
+        `Unexpected error: ${String(error)}`
       );
     }
 
@@ -139,10 +147,11 @@ export const errorHandler = new Elysia().onError(
           message,
           requestId,
           timestamp,
-          ...(process.env.NODE_ENV === 'development' && {
-            stack: error.stack,
-            details: error,
-          }),
+          ...(process.env.NODE_ENV === 'development' &&
+            error instanceof Error && {
+              stack: error.stack,
+              details: error,
+            }),
         },
       };
     }
@@ -174,7 +183,7 @@ export const errorHandler = new Elysia().onError(
               ? `
             <details class="mt-6 text-left">
               <summary class="cursor-pointer text-sm text-gray-500">Technical Details</summary>
-              <pre class="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto">${error.stack || error.message}</pre>
+              <pre class="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto">${error instanceof Error ? error.stack || error.message : String(error)}</pre>
             </details>
           `
               : ''

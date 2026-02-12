@@ -3,8 +3,10 @@ import { getCookieConfig, getExpiredCookieConfig } from '../utils/cookies';
 import { hashPassword, verifyPassword } from '../utils/password';
 import { prisma } from '../utils/prisma';
 import { logger } from '../utils/logger';
+import { setup } from '../setup';
 
 export const authController = new Elysia()
+  .use(setup)
   .get('/register', ({ view }) => {
     return view('auth/register', {});
   })
