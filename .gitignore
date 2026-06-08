@@ -38,6 +38,7 @@ tsconfig.tsbuildinfo
 Thumbs.db
 
 # Prisma
+prisma/generated/
 prisma/migrations/
 
 # Testing
